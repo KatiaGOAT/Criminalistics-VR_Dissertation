@@ -1546,8 +1546,8 @@ GameObject:
   m_Component:
   - component: {fileID: 33725605}
   m_Layer: 0
-  m_Name: Evidence_3
-  m_TagString: Untagged
+  m_Name: Evidence_3_SuspectsPhone
+  m_TagString: Evidence
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5414,6 +5414,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: evidence_marker_4
       objectReference: {fileID: 0}
+    - target: {fileID: 1010716966374951139, guid: ae453274c4cf6b24398951930f6b95de, type: 3}
+      propertyPath: m_TagString
+      value: EvidenceMarker
+      objectReference: {fileID: 0}
     - target: {fileID: 1509832770732694843, guid: ae453274c4cf6b24398951930f6b95de, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.4749999
@@ -6294,8 +6298,8 @@ GameObject:
   m_Component:
   - component: {fileID: 166895509}
   m_Layer: 0
-  m_Name: Evidence_4
-  m_TagString: Untagged
+  m_Name: Evidence_4_Diary
+  m_TagString: Evidence
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8958,7 +8962,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2798265100170720077, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
       propertyPath: m_Name
-      value: evi_marker_socket (5)
+      value: SocketCollider_E6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798265100170720077, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
+      propertyPath: m_TagString
+      value: EvidenceSocket
       objectReference: {fileID: 0}
     - target: {fileID: 8623834864112176952, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
       propertyPath: m_LocalScale.y
@@ -13456,8 +13464,8 @@ GameObject:
   m_Component:
   - component: {fileID: 318450290}
   m_Layer: 0
-  m_Name: Evidence_7
-  m_TagString: Untagged
+  m_Name: Evidence_7_VictimsWatch
+  m_TagString: Evidence
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24191,7 +24199,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2798265100170720077, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
       propertyPath: m_Name
-      value: evi_marker_socket (1)
+      value: SocketCollider_E2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798265100170720077, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
+      propertyPath: m_TagString
+      value: EvidenceSocket
       objectReference: {fileID: 0}
     - target: {fileID: 8623834864112176952, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
       propertyPath: m_LocalScale.y
@@ -24987,6 +24999,10 @@ PrefabInstance:
     - target: {fileID: 4689345636703651358, guid: 568d55137013e3c43bc2d0a1c93f07b3, type: 3}
       propertyPath: m_Name
       value: evidence_marker_5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689345636703651358, guid: 568d55137013e3c43bc2d0a1c93f07b3, type: 3}
+      propertyPath: m_TagString
+      value: EvidenceMarker
       objectReference: {fileID: 0}
     - target: {fileID: 7849610828149118134, guid: 568d55137013e3c43bc2d0a1c93f07b3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34301,7 +34317,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2798265100170720077, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
       propertyPath: m_Name
-      value: evi_marker_socket (3)
+      value: SocketCollider_E4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798265100170720077, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
+      propertyPath: m_TagString
+      value: EvidenceSocket
       objectReference: {fileID: 0}
     - target: {fileID: 8623834864112176952, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
       propertyPath: m_LocalScale.y
@@ -54562,6 +54582,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: evidence_marker_1
       objectReference: {fileID: 0}
+    - target: {fileID: 2798265100170720077, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
+      propertyPath: m_TagString
+      value: EvidenceMarker
+      objectReference: {fileID: 0}
     - target: {fileID: 8623834864112176952, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.64999986
@@ -54623,6 +54647,10 @@ PrefabInstance:
     - target: {fileID: 8846591704006793429, guid: 95d2342f421804145940d6382862a538, type: 3}
       propertyPath: m_Name
       value: evidence_marker_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8846591704006793429, guid: 95d2342f421804145940d6382862a538, type: 3}
+      propertyPath: m_TagString
+      value: EvidenceMarker
       objectReference: {fileID: 0}
     - target: {fileID: 9194821456197320457, guid: 95d2342f421804145940d6382862a538, type: 3}
       propertyPath: m_LocalPosition.x
@@ -58431,6 +58459,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: evidence_marker_7
       objectReference: {fileID: 0}
+    - target: {fileID: 1030353491925947336, guid: 82616a7673720604db6ce266df0d439f, type: 3}
+      propertyPath: m_TagString
+      value: EvidenceMarker
+      objectReference: {fileID: 0}
     - target: {fileID: 3073591246310979660, guid: 82616a7673720604db6ce266df0d439f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -60352,8 +60384,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1459851051}
   m_Layer: 0
-  m_Name: Evidence_2
-  m_TagString: Untagged
+  m_Name: Evidence_2_Rope&Tape
+  m_TagString: Evidence
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62629,8 +62661,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1511236271}
   m_Layer: 0
-  m_Name: Evidence_6
-  m_TagString: Untagged
+  m_Name: Evidence_6_Footprints
+  m_TagString: Evidence
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66651,7 +66683,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2798265100170720077, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
       propertyPath: m_Name
-      value: evi_marker_socket (2)
+      value: SocketCollider_E3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798265100170720077, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
+      propertyPath: m_TagString
+      value: EvidenceSocket
       objectReference: {fileID: 0}
     - target: {fileID: 8623834864112176952, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
       propertyPath: m_LocalScale.y
@@ -71978,7 +72014,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2798265100170720077, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
       propertyPath: m_Name
-      value: evi_marker_socket
+      value: SocketCollider_E1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798265100170720077, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
+      propertyPath: m_TagString
+      value: EvidenceSocket
       objectReference: {fileID: 0}
     - target: {fileID: 8623834864112176952, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
       propertyPath: m_LocalScale.y
@@ -75091,8 +75131,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1783832581}
   m_Layer: 0
-  m_Name: Evidence_1
-  m_TagString: Untagged
+  m_Name: Evidence_1_Laptop
+  m_TagString: Evidence
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77309,6 +77349,10 @@ PrefabInstance:
     - target: {fileID: 7599658018259614671, guid: 5ae9cd116f8e4f9428ee7860908919f9, type: 3}
       propertyPath: m_Name
       value: evidence_marker_6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7599658018259614671, guid: 5ae9cd116f8e4f9428ee7860908919f9, type: 3}
+      propertyPath: m_TagString
+      value: EvidenceMarker
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -82387,6 +82431,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: evidence_marker_3
       objectReference: {fileID: 0}
+    - target: {fileID: 9057562795029794336, guid: 5c28e20c1b33e664cbaf1db56eb48f09, type: 3}
+      propertyPath: m_TagString
+      value: EvidenceMarker
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -83224,8 +83272,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1992870830}
   m_Layer: 0
-  m_Name: Evidence_5
-  m_TagString: Untagged
+  m_Name: Evidence_5_Wallet
+  m_TagString: Evidence
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83425,7 +83473,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2798265100170720077, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
       propertyPath: m_Name
-      value: evi_marker_socket (6)
+      value: SocketCollider_E7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798265100170720077, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
+      propertyPath: m_TagString
+      value: EvidenceSocket
       objectReference: {fileID: 0}
     - target: {fileID: 8623834864112176952, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
       propertyPath: m_LocalScale.y
@@ -87600,7 +87652,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2798265100170720077, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
       propertyPath: m_Name
-      value: evi_marker_socket (4)
+      value: SocketCollider_E5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798265100170720077, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
+      propertyPath: m_TagString
+      value: EvidenceSocket
       objectReference: {fileID: 0}
     - target: {fileID: 8623834864112176952, guid: 46f809dda39c31447ad1a6460ecf78c9, type: 3}
       propertyPath: m_LocalScale.y
