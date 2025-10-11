@@ -28,14 +28,25 @@ public class PPEItem : MonoBehaviour
         if (equipSound)
             audioSource.PlayOneShot(equipSound);
 
-        // Show feedback text
+        // Show feedback UI
         if (feedbackUI != null)
         {
             feedbackUI.SetActive(true);
-            feedbackUI.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"{itemName} equipped.";
+            Debug.Log($"Showing feedback UI for {itemName}");
+        }
+        else
+        {
+            Debug.LogWarning($"feedbackUI not assigned for {itemName}");
         }
 
         // Notify manager
-        PPEManager.Instance.RegisterEquippedItem(itemName);
+        if (PPEManager.Instance != null)
+        {
+            PPEManager.Instance.RegisterEquippedItem(itemName);
+        }
+        else
+        {
+            Debug.LogError("PPEManager.Instance is null — make sure there's one in the scene.");
+        }
     }
 }

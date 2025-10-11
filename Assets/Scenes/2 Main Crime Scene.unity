@@ -20971,7 +20971,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Point at each item and click to equip.
+  m_text: Point at each item and press the grip button to equip.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -23781,6 +23781,7 @@ MonoBehaviour:
   isOpen: 0
   sceneAudioSource: {fileID: 173214854}
   doorSound: {fileID: 8300000, guid: f17e8beab8303304daa27600814c0dc6, type: 3}
+  warningSound: {fileID: 8300000, guid: eb1c59b89c13053418cf1bc1aae981e0, type: 3}
   warningUI: {fileID: 76410807}
 --- !u!1001 &485602519
 PrefabInstance:
@@ -57040,7 +57041,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1425823594}
   - {fileID: 2026057940}
   m_Father: {fileID: 1738529885}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -67906,13 +67906,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1425823593}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.70710665, y: 0, z: -0, w: 0.70710695}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.99999994, z: 0.99999994}
+  m_LocalRotation: {x: -0.7071067, y: -0, z: -0, w: 0.707107}
+  m_LocalPosition: {x: -3.3708286, y: 4.1000004, z: -5.4284334}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1368950727}
-  m_Father: {fileID: 1202930066}
+  m_Father: {fileID: 2026057940}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1427106527
 PrefabInstance:
@@ -98438,7 +98438,8 @@ Transform:
   m_LocalPosition: {x: 3.3708289, y: -4.1000004, z: 5.4284334}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1425823594}
   m_Father: {fileID: 1202930066}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &2026057941
@@ -98538,7 +98539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PPEItem
   itemName: Mask
   feedbackUI: {fileID: 164858452}
-  equipSound: {fileID: 0}
+  equipSound: {fileID: 8300000, guid: ed241361f282cf246b3e999bd29efa81, type: 3}
   audioSource: {fileID: 173214854}
 --- !u!114 &2026057944
 MonoBehaviour:
@@ -105592,12 +105593,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9027166682134896263}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2851902502320629313}
+  m_Father: {fileID: 2128124114520212068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &586625757869365454
 GameObject:
@@ -106391,7 +106392,9 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 531317892213396456}
+  - {fileID: 8663330582491229610}
   m_Father: {fileID: 2851902502320629313}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2151627069483210120
@@ -106618,8 +106621,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2128124114520212068}
-  - {fileID: 8663330582491229610}
-  - {fileID: 531317892213396456}
   m_Father: {fileID: 1738529885}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &2890425382216387079
@@ -106731,7 +106732,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2851902502320629313}
   m_Layer: 0
-  m_Name: PPE KIT
+  m_Name: PPE Kit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109545,13 +109546,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3766553081318127924}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.70710665, y: 0, z: -0, w: 0.70710695}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.99999994, z: 0.99999994}
+  m_LocalRotation: {x: -0.7071067, y: -0, z: -0, w: 0.707107}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5963113129476475340}
-  m_Father: {fileID: 2851902502320629313}
+  m_Father: {fileID: 2128124114520212068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8691567658307623187
 GameObject:
