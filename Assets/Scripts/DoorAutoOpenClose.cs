@@ -1,19 +1,46 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class DoorAutoOpenClose : MonoBehaviour
 {
+    [Header("Door Animation")]
     public Animator doorAnimator;
     public bool isOpen = false;
 
+    [Header("Audio")]
     public AudioSource sceneAudioSource;         // The AudioSource component
     public AudioClip doorSound;
 
+    [Header("UI References")]
+    public GameObject warningUI;           // UI to show when PPE not equipped
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isOpen)
+        //if (other.CompareTag("Player") && !isOpen)
+        //{
+        //    StartCoroutine(OpenDoor());
+        //}
+
+        // Only react when the player enters trigger zone
+        if (other.CompareTag("Player"))
         {
-            StartCoroutine(OpenDoor());
+            // Check PPE status before opening door
+            if (!PPEManager.Instance.IsPPEComplete())
+            {
+                // PPE not equipped → show warning UI, block door
+                if (warningUI != null)
+                    warningUI.SetActive(true);
+
+                Debug.Log("Access denied: PPE not equipped.");
+                return;
+            }
+
+            // PPE is complete → hide warning (if shown) and open the door
+            if (warningUI != null)
+                warningUI.SetActive(false);
+
+            if (!isOpen)
+                StartCoroutine(OpenDoor());
         }
     }
 
