@@ -1,18 +1,45 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
-/// Central manager for tracking all labeled evidence.
-/// Updates the Case File UI with progress and names of evidence.
-/// Singleton pattern so other scripts can easily call it.
-/// </summary>
 public class CaseFileManager : MonoBehaviour
 {
-    // Static instance for global access
+
+    // Manages evidence tracking, UI updates, and onboarding flow in the VR crime scene. 
+    // Handles start activation, success/error sounds, and marker resets if labeling too early.
+
+    //Singleton for easy global access
     public static CaseFileManager Instance;
 
-    // Struct-style class to store marker/evidence pair info
+    [Header("Case File State")]
+    public bool isCaseFileActive = false;     // True only after player presses "Start"
+
+    [Header("UI Elements")]
+    
+    public GameObject completionUI;           // UI shown when all evidence collected
+    public GameObject errorUI;                // UI shown when labeling too early
+
+    [Header("Case File Labels")]
+    public List<TextMeshProUGUI> evidenceTextFields;  // 7 TMP text fields next to labels (1–7)
+
+    [Header("Evidence Tracking")]
+    public int totalEvidenceCount = 7;        // Total evidence in this scene
+    private int collectedCount = 0;           // Counter
+    public List<LabeledEvidence> collectedEvidence = new List<LabeledEvidence>();
+
+    [Header("Markers Reference")]
+    public List<GameObject> evidenceMarkers;  // Assign all 7 evidence marker objects here in Inspector
+    private Dictionary<GameObject, Vector3> markerStartPositions = new Dictionary<GameObject, Vector3>();
+
+    [Header("Audio Feedback")]
+    public AudioSource audioSource;           // Add an AudioSource to play UI sounds
+    //public AudioClip evidenceTickSound;       // Tick sound when evidence labeled
+    public AudioClip errorSound;              // Error beep when labeling too early
+
+    private Coroutine hideErrorRoutine;
+
+    //Class to store evidence info
     [System.Serializable]
     public class LabeledEvidence
     {
@@ -20,30 +47,33 @@ public class CaseFileManager : MonoBehaviour
         public string evidenceName;
     }
 
-    [Header("UI Elements")]
-    public TextMeshProUGUI caseFileText;   // Text area showing list of collected evidence
-    public TextMeshProUGUI progressText;   // Text showing how many are collected
-
-    [Header("Settings")]
-    public int totalEvidenceCount = 7;     // Total evidence pieces in the scene
-    private int collectedCount = 0;        // Current progress count
-
-    [Header("Collected Data")]
-    public List<LabeledEvidence> collectedEvidence = new List<LabeledEvidence>(); // Stores what’s been found
-
     void Awake()
     {
-        // Simple Singleton pattern — ensures only one manager exists
+        // --- Singleton setup ---
         if (Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
     }
 
-    /// <summary>
-    /// Called by EvidenceMarker.cs when a new evidence is labeled.
-    /// Adds entry to the list and refreshes the UI.
-    /// </summary>
+    void Start()
+    {
+        // --- Save starting positions of all markers ---
+        foreach (var marker in evidenceMarkers)
+        {
+            if (marker != null)
+                markerStartPositions[marker] = marker.transform.position;
+        }
+    }
+
+    //Called by Start Button (through OnClick event)
+    public void ActivateCaseFile()
+    {
+        isCaseFileActive = true;
+        Debug.Log("Case File Activated. Player can now start labeling evidence.");
+    }
+
+    //Called when player labels an evidence correctly
     public void UpdateCaseFile(int markerNumber, string evidenceName)
     {
         // Create new record
@@ -53,44 +83,73 @@ public class CaseFileManager : MonoBehaviour
             evidenceName = evidenceName
         });
 
-        // Update counts
         collectedCount++;
-        RefreshUI();
 
-        // If all evidence collected, trigger end-of-task UI
+        //Update corresponding TMP field (based on marker number)
+        int index = markerNumber - 1;
+        if (index >= 0 && index < evidenceTextFields.Count && evidenceTextFields[index] != null)
+        {
+            evidenceTextFields[index].text = evidenceName;
+        }
+
+        //Play tick sound
+        //if (audioSource && evidenceTickSound)
+        //    audioSource.PlayOneShot(evidenceTickSound);
+
+        Debug.Log($"Marker {markerNumber} linked to {evidenceName}");
+
+        // If all evidence collected, show completion UI
         if (collectedCount >= totalEvidenceCount)
-        {
             ShowCompletionUI();
-        }
     }
 
-    /// <summary>
-    /// Updates the on-screen Case File UI (list + progress).
-    /// </summary>
-    void RefreshUI()
-    {
-        string list = "";
-
-        // Loop through all collected evidence and display
-        foreach (var e in collectedEvidence)
-        {
-            list += $"Marker {e.markerNumber}: {e.evidenceName}\n";
-        }
-
-        // Update UI text fields
-        if (caseFileText)
-            caseFileText.text = list;
-
-        if (progressText)
-            progressText.text = $"Evidence Collected: {collectedCount}/{totalEvidenceCount}";
-    }
-
-    /// <summary>
-    /// Displays a message or triggers your "Task Complete" screen.
-    /// </summary>
+    //Display "task complete" message when all evidence is labeled
     void ShowCompletionUI()
     {
+        if (completionUI != null)
+            completionUI.SetActive(true);
+
         Debug.Log("All evidence labeled. Proceed to the analysis room.");
-        // Here you can show your completion UI panel or trigger a fade-out.
+    }
+
+    //Show error message, play sound, and reset markers if player labels before pressing Start
+    public void ShowErrorUI()
+    {
+        if (errorUI == null) return;
+
+        errorUI.SetActive(true);
+        Debug.Log("Case File not active. Please press Start before labeling evidence.");
+
+        // Play error beep
+        if (audioSource && errorSound)
+            audioSource.PlayOneShot(errorSound);
+
+        // Hide after 3 seconds
+        if (hideErrorRoutine != null)
+            StopCoroutine(hideErrorRoutine);
+        hideErrorRoutine = StartCoroutine(HideErrorAfterDelay(3f));
+
+        // Reset all markers to initial table positions
+        ResetMarkersToStart();
+    }
+
+    IEnumerator HideErrorAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (errorUI != null)
+            errorUI.SetActive(false);
+    }
+
+    //Move all markers back to their original start positions
+    void ResetMarkersToStart()
+    {
+        foreach (var marker in evidenceMarkers)
+        {
+            if (marker != null && markerStartPositions.ContainsKey(marker))
+            {
+                marker.transform.position = markerStartPositions[marker];
+            }
+        }
+        Debug.Log("All evidence markers reset to start positions.");
     }
 }

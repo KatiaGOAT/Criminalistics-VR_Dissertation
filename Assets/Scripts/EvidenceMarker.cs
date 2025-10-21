@@ -17,37 +17,39 @@ public class EvidenceMarker : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     /// <summary>
     /// Triggered when this marker enters another collider (like an evidence socket).
     /// </summary>
+
     private void OnTriggerEnter(Collider other)
     {
-        // If already placed, ignore further triggers
         if (isPlaced) return;
 
-        // Check if the object we hit is tagged as "EvidenceSocket"
+        //Check Case File activation before allowing labeling
+        if (!CaseFileManager.Instance.isCaseFileActive)
+        {
+            CaseFileManager.Instance.ShowErrorUI();
+            return;
+        }
+
         if (other.CompareTag("EvidenceSocket"))
         {
-            // Get the EvidenceItem component from the socket’s parent
             EvidenceItem evidence = other.GetComponentInParent<EvidenceItem>();
 
-            // If we found an evidence item and it’s not already labeled
             if (evidence != null && !evidence.isLabeled)
             {
-                // Label this evidence using our marker number
                 evidence.LabelEvidence(markerNumber);
                 isPlaced = true;
 
-                // Play the tick sound for feedback
                 if (audioSource && placeSound)
                     audioSource.PlayOneShot(placeSound);
 
-                // Inform the Case File Manager to update the UI
                 CaseFileManager.Instance.UpdateCaseFile(markerNumber, evidence.evidenceName);
             }
         }
     }
+
 }
