@@ -1,55 +1,51 @@
 using UnityEngine;
 
 /// <summary>
-/// Attached to each evidence marker (e.g., evidence_marker_1).
-/// Detects when it’s placed near a valid evidence socket.
-/// Plays sound, triggers evidence labeling, and updates the Case File UI.
+/// Simple data holder for each evidence marker.
+/// Stores its number, sound, and initial position.
+/// Placement logic is handled by the XR Socket Interactor via EvidenceSocketHandler.
 /// </summary>
 public class EvidenceMarker : MonoBehaviour
 {
     [Header("Marker Info")]
-    public int markerNumber;              // Example: 1, 2, 3... (each must be unique)
-    public bool isPlaced = false;         // Has the marker already been placed?
+    public int markerNumber;         // Unique marker ID (1–7)
+    public bool isPlaced = false;    // True once it’s used to label evidence
 
-    [Header("Audio")]
-    public AudioClip placeSound;          // The "tick" sound when placed
-    public AudioSource audioSource;      // To play the sound
+    [Header("Audio Feedback")]
+    public AudioClip placeSound;     // Sound played on successful placement
+    public AudioSource audioSource;  // Audio source on the marker object
+
+    private Vector3 startPos;
+    private Quaternion startRot;
 
     void Start()
     {
+        // Save initial transform data
+        startPos = transform.position;
+        startRot = transform.rotation;
 
+        // Register this marker’s position in CaseFileManager if not already stored
+        if (CaseFileManager.Instance != null &&
+            !CaseFileManager.Instance.markerStartPositions.ContainsKey(gameObject))
+        {
+            CaseFileManager.Instance.markerStartPositions.Add(gameObject, startPos);
+        }
     }
 
     /// <summary>
-    /// Triggered when this marker enters another collider (like an evidence socket).
+    /// Resets marker back to its initial table position and rotation.
+    /// Called when labeling happens too early or needs to be undone.
     /// </summary>
-
-    private void OnTriggerEnter(Collider other)
+    public void ResetToStartPosition()
     {
-        if (isPlaced) return;
+        transform.position = startPos;
+        transform.rotation = startRot;
 
-        //Check Case File activation before allowing labeling
-        if (!CaseFileManager.Instance.isCaseFileActive)
-        {
-            CaseFileManager.Instance.ShowErrorUI();
-            return;
-        }
+        if (audioSource != null)
+            audioSource.Stop(); // stop any ongoing sound to avoid overlap
 
-        if (other.CompareTag("EvidenceSocket"))
-        {
-            EvidenceItem evidence = other.GetComponentInParent<EvidenceItem>();
+        isPlaced = false;
 
-            if (evidence != null && !evidence.isLabeled)
-            {
-                evidence.LabelEvidence(markerNumber);
-                isPlaced = true;
-
-                if (audioSource && placeSound)
-                    audioSource.PlayOneShot(placeSound);
-
-                CaseFileManager.Instance.UpdateCaseFile(markerNumber, evidence.evidenceName);
-            }
-        }
+        Debug.Log($"{name} reset to starting position.");
     }
-
 }

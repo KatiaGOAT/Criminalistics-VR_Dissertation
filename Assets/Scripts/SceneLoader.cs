@@ -12,6 +12,11 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene("2 Main Crime Scene");
     }
+
+    public void GoToAnalysisRoomScene()
+    {
+        SceneManager.LoadScene("3 Analysis Room Scene");
+    }
     public void QuitApplication()
     {
         // Quit the application

@@ -30,5 +30,8 @@ public class EvidenceItem : MonoBehaviour
         // Turn on the tick/checkmark visual if it exists
         if (tickMark != null)
             tickMark.SetActive(true);
+
+
+        Debug.Log($"Evidence labeled: {evidenceName} (Marker {markerNumber})");
     }
 }

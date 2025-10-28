@@ -14,11 +14,16 @@ public class CaseFileManager : MonoBehaviour
 
     [Header("Case File State")]
     public bool isCaseFileActive = false;     // True only after player presses "Start"
+    public bool IsCaseFileActive()
+    {
+        return isCaseFileActive;
+    }
 
     [Header("UI Elements")]
     
     public GameObject completionUI;           // UI shown when all evidence collected
     public GameObject errorUI;                // UI shown when labeling too early
+    public GameObject InfoUI;                 // Initial instructions UI
 
     [Header("Case File Labels")]
     public List<TextMeshProUGUI> evidenceTextFields;  // 7 TMP text fields next to labels (1–7)
@@ -30,12 +35,12 @@ public class CaseFileManager : MonoBehaviour
 
     [Header("Markers Reference")]
     public List<GameObject> evidenceMarkers;  // Assign all 7 evidence marker objects here in Inspector
-    private Dictionary<GameObject, Vector3> markerStartPositions = new Dictionary<GameObject, Vector3>();
+    public Dictionary<GameObject, Vector3> markerStartPositions = new Dictionary<GameObject, Vector3>();
 
     [Header("Audio Feedback")]
-    public AudioSource audioSource;           // Add an AudioSource to play UI sounds
-    //public AudioClip evidenceTickSound;       // Tick sound when evidence labeled
-    public AudioClip errorSound;              // Error beep when labeling too early
+    public AudioSource audioSource;             // Add an AudioSource to play UI sounds
+    public AudioClip finalSound;                // final sound when all evidences are labeled
+    public AudioClip errorSound;                // Error beep when labeling too early
 
     private Coroutine hideErrorRoutine;
 
@@ -92,10 +97,6 @@ public class CaseFileManager : MonoBehaviour
             evidenceTextFields[index].text = evidenceName;
         }
 
-        //Play tick sound
-        //if (audioSource && evidenceTickSound)
-        //    audioSource.PlayOneShot(evidenceTickSound);
-
         Debug.Log($"Marker {markerNumber} linked to {evidenceName}");
 
         // If all evidence collected, show completion UI
@@ -108,6 +109,14 @@ public class CaseFileManager : MonoBehaviour
     {
         if (completionUI != null)
             completionUI.SetActive(true);
+        
+        //HIDE the initial UI
+        if (InfoUI != null)
+            InfoUI.SetActive(false);
+
+        // Play error beep
+        if (audioSource && finalSound)
+            audioSource.PlayOneShot(finalSound);
 
         Debug.Log("All evidence labeled. Proceed to the analysis room.");
     }
@@ -130,7 +139,7 @@ public class CaseFileManager : MonoBehaviour
         hideErrorRoutine = StartCoroutine(HideErrorAfterDelay(3f));
 
         // Reset all markers to initial table positions
-        ResetMarkersToStart();
+        //ResetMarkersToStart();
     }
 
     IEnumerator HideErrorAfterDelay(float delay)
@@ -140,16 +149,17 @@ public class CaseFileManager : MonoBehaviour
             errorUI.SetActive(false);
     }
 
-    //Move all markers back to their original start positions
-    void ResetMarkersToStart()
+    // Called by EvidenceSocketHandler to reset a single marker that was placed too early
+    public void ResetSingleMarker(GameObject marker)
     {
-        foreach (var marker in evidenceMarkers)
+        Debug.Log($"ResetSingleMarker() called for {marker.name}");
+
+        if (marker != null && markerStartPositions.ContainsKey(marker))
         {
-            if (marker != null && markerStartPositions.ContainsKey(marker))
-            {
-                marker.transform.position = markerStartPositions[marker];
-            }
+            marker.transform.position = markerStartPositions[marker];
+            Debug.Log($"Marker {marker.name} reset to start position.");
         }
-        Debug.Log("All evidence markers reset to start positions.");
+
     }
+
 }
