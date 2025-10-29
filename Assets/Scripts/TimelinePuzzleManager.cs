@@ -12,14 +12,12 @@ public class TimelinePuzzleManager : MonoBehaviour
     public AudioSource audioSource;   // shared AudioSource
     public AudioClip correctSound;
     public AudioClip errorSound;
+    public AudioClip finalCompletionSound;
 
     [Header("UI")]
-    public GameObject continueButton; // hidden until puzzle complete
-    public GameObject instructionUI;  // initial instruction panel
-
-    [Header("Settings")]
-    public float tickFadeDelay = 3f;  // hide tick after 3 seconds
-
+    public GameObject nextCanvasUI;
+    public GameObject completionUI; // hidden until puzzle complete
+    
     private bool[] isCorrect;         // tracks which sockets are correct
     private bool[] hasPiece;          // tracks if socket currently filled
     private Coroutine[] errorLoops;   // for looping wrong sound
@@ -34,7 +32,7 @@ public class TimelinePuzzleManager : MonoBehaviour
         // Hide all tick/cross and continue button at start
         foreach (var t in tickUIs) if (t) t.SetActive(false);
         foreach (var c in crossUIs) if (c) c.SetActive(false);
-        if (continueButton) continueButton.SetActive(false);
+        
     }
 
     // Called by PuzzleSocket when piece is placed
@@ -48,7 +46,9 @@ public class TimelinePuzzleManager : MonoBehaviour
         {
             // Correct piece
             isCorrect[index] = true;
-            if (tickUIs[index]) StartCoroutine(ShowTickTemporary(tickUIs[index]));
+            //if (tickUIs[index]) StartCoroutine(ShowTickTemporary(tickUIs[index]));
+            if (tickUIs[index]) tickUIs[index].SetActive(true);  // Keep tick visible
+
             if (crossUIs[index]) crossUIs[index].SetActive(false);
 
             if (audioSource && correctSound)
@@ -84,6 +84,7 @@ public class TimelinePuzzleManager : MonoBehaviour
         if (index < 0 || index >= isCorrect.Length) return;
 
         hasPiece[index] = false;
+        isCorrect[index] = false; // reset correctness state
 
         // Stop wrong sound if it was looping
         if (errorLoops[index] != null)
@@ -92,9 +93,11 @@ public class TimelinePuzzleManager : MonoBehaviour
             errorLoops[index] = null;
         }
 
-        // Hide cross if it was showing
+        // Hide both cross and tick when piece removed
         if (crossUIs[index]) crossUIs[index].SetActive(false);
+        if (tickUIs[index]) tickUIs[index].SetActive(false);
     }
+
 
     private IEnumerator LoopErrorSound(int index)
     {
@@ -104,14 +107,6 @@ public class TimelinePuzzleManager : MonoBehaviour
             yield return new WaitForSeconds(errorSound.length);
         }
     }
-
-    private IEnumerator ShowTickTemporary(GameObject tick)
-    {
-        tick.SetActive(true);
-        yield return new WaitForSeconds(tickFadeDelay);
-        tick.SetActive(false);
-    }
-
     private void CheckPuzzleCompletion()
     {
         // Check if all pieces are correctly placed
@@ -120,7 +115,11 @@ public class TimelinePuzzleManager : MonoBehaviour
             if (!correct) return;
         }
 
+        audioSource.PlayOneShot(finalCompletionSound);
+
         Debug.Log("All puzzle pieces correct! Puzzle solved.");
-        if (continueButton) continueButton.SetActive(true);
+        if (nextCanvasUI) nextCanvasUI.SetActive(false);
+        if (completionUI) completionUI.SetActive(true);
+
     }
 }

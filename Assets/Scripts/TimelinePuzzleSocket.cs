@@ -1,38 +1,32 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class TimelinePuzzleSocket : MonoBehaviour
 {
     [Header("Socket Settings")]
     public int socketIndex; // 0 for S1, 1 for S2, etc.
 
-    private TimelinePuzzleManager timelinePuzzleManager;
-    private AudioSource errorAudioSource; // to stop sound if removed
+    public TimelinePuzzleManager timelinePuzzleManager;
 
-    private void OnTriggerEnter(Collider other)
+    // Called automatically from XR Socket Interactor event "Select Entered"
+    public void OnPiecePlaced(SelectEnterEventArgs args)
     {
         if (timelinePuzzleManager == null) return;
 
+        GameObject piece = args.interactableObject.transform.gameObject;
         string expectedTag = "PP" + (socketIndex + 1);
 
-        if (other.CompareTag(expectedTag))
-        {
-            //Correct piece
-            timelinePuzzleManager.PiecePlaced(socketIndex, true, other.gameObject, this);
-        }
-        else if (other.CompareTag("PP1") || other.CompareTag("PP2") || other.CompareTag("PP3") ||
-                 other.CompareTag("PP4") || other.CompareTag("PP5") || other.CompareTag("PP6") ||
-                 other.CompareTag("PP7"))
-        {
-            // Wrong piece
-            timelinePuzzleManager.PiecePlaced(socketIndex, false, other.gameObject, this);
-        }
+        if (piece.CompareTag(expectedTag))
+            timelinePuzzleManager.PiecePlaced(socketIndex, true, piece, this);
+        else
+            timelinePuzzleManager.PiecePlaced(socketIndex, false, piece, this);
     }
 
-    private void OnTriggerExit(Collider other)
+    // Called automatically from XR Socket Interactor event "Select Exited"
+    public void OnPieceRemoved(SelectExitEventArgs args)
     {
         if (timelinePuzzleManager == null) return;
 
-        // Stop error sound and hide cross when wrong piece is removed
         timelinePuzzleManager.PieceRemoved(socketIndex);
     }
 }
