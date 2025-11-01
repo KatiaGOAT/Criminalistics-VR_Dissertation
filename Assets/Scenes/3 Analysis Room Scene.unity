@@ -7028,12 +7028,29 @@ MonoBehaviour:
   - {fileID: 275408128}
   - {fileID: 1976539558}
   - {fileID: 568502650}
+  hintUIs:
+  - {fileID: 671419958}
+  - {fileID: 1333052160}
+  - {fileID: 413772175}
+  - {fileID: 343228912}
+  - {fileID: 1355588260}
+  - {fileID: 689682786}
+  - {fileID: 226173066}
+  socketObjects:
+  - {fileID: 1540987004}
+  - {fileID: 2059772905}
+  - {fileID: 2116189377}
+  - {fileID: 1438085261}
+  - {fileID: 654255106}
+  - {fileID: 1849514959}
+  - {fileID: 1249654866}
   audioSource: {fileID: 136229509}
   correctSound: {fileID: 8300000, guid: dd0f6680aa2229e4e9f06235d85c8ee5, type: 3}
   errorSound: {fileID: 8300000, guid: 4956996943835944bba2a3d9082f2635, type: 3}
   finalCompletionSound: {fileID: 8300000, guid: 1cbb1b4ec28d25e42b4c4a066b4271b8, type: 3}
   nextCanvasUI: {fileID: 1622336939}
   completionUI: {fileID: 1305501662}
+  xrManager: {fileID: 0}
 --- !u!1001 &724004635
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12637,7 +12654,7 @@ MonoBehaviour:
       happen like this."
     voiceClip: {fileID: 8300000, guid: 1a8cea76ce474b8449f0236680d1d6d6, type: 3}
     delayAfterLine: 1
-  - subtitleText: 'Investigator: So you admit it. You killed him.'
+  - subtitleText: 'Investigator: So you admit it. You killed her.'
     voiceClip: {fileID: 8300000, guid: ebc844edb34cf9a4fa5d335abf298c84, type: 3}
     delayAfterLine: 1
   - subtitleText: "Suspect: She pushed me too far\u2026 I just wanted to scare her."
@@ -19578,18 +19595,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 889280809}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1305501662}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -19618,6 +19623,30 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 723064440}
+        m_TargetAssemblyTypeName: TimelinePuzzleManager, Assembly-CSharp
+        m_MethodName: HideAllPuzzleElements
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1420069815}
+        m_TargetAssemblyTypeName: InterrogationManager, Assembly-CSharp
+        m_MethodName: BeginInterrogation
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
